@@ -225,7 +225,7 @@ function photoLayout() {
 @import '@glidejs/glide/dist/css/glide.core.min.css';
 @import '@glidejs/glide/dist/css/glide.theme.min.css';
 
-/* 头部 */
+/*            #region 头部               */
 .header {
   width: 100vw;
   height: 80px;
@@ -265,7 +265,18 @@ function photoLayout() {
   display: none;
 }
 
-/* 轮播 */
+.explore-btn {
+  padding: 14px 32px;
+  background-color: var(--primary-color);
+  border: 0;
+  border-radius: 10px;
+  color: var(--text-color-lightest);
+  font-size: 30px;
+  cursor: pointer;
+}
+/* #endregion 头部区域结束*/
+
+/*              #region 轮播            */
 .glide {
   position: relative;
   top: -80px;
@@ -325,19 +336,9 @@ function photoLayout() {
   left: 0;
   right: 0;
 }
+/* #endregion 轮播区域结束 */
 
-.explore-btn {
-  padding: 14px 32px;
-  background-color: var(--primary-color);
-  border: 0;
-  border-radius: 10px;
-  color: var(--text-color-lightest);
-  font-size: 30px;
-  cursor: pointer;
-}
-
-/* 内容区域 */
-/* 通用样式 */
+/*          #region 内容区域————通用样式         */
 .content-wrapper {
   display: flex;
   align-items: center;
@@ -347,7 +348,9 @@ function photoLayout() {
   flex-direction: column;
 }
 
-/* 各内容 */
+
+
+/* 各区域的 内容 */
 section {
   display: grid;
   /* grid是二维，有很多列，对于每一个列的 水平上的居中方式, 与flex布局不同 */
@@ -356,10 +359,18 @@ section {
   padding: 0 80px;
 }
 
-/* 成功案例的背景 */
+/* 各区域的 标题 */
+.title1 {
+  font-size: 34px;
+  color: var(--text-color-darker);
+}
+
+
+/* 各内容区域的 背景 */
 .section-bg {
   position: relative;
 }
+/* 各内容区域的 标题下方的分隔线 */
 .section-bg::before {
   content: '';
   display: block;
@@ -371,11 +382,7 @@ section {
   z-index: -1;
 }
 
-/* 内容标题 */
-.title1 {
-  font-size: 34px;
-  color: var(--text-color-darker);
-}
+
 
 /* 在.title1元素后 插入新内容 */
 .title1::after {
@@ -393,8 +400,9 @@ section {
   font-size: 18px;
   color: var(--text-color-dark-gray);
 }
+/* #endregion 通用样式结束 */
 
-/* 关于我们 */
+/*               #region 关于我们                  */
 .about-us {
   padding-bottom: 32px;
 }
@@ -439,8 +447,9 @@ section {
   grid-area: content;
   color: var(--text-color-dark-gray);
 }
+/* #endregion 关于我们区域结束 */
 
-/* 成功案例 */
+/*              #region Photos区域                */
 .showcases {
   /* 还原最大宽度 */
   max-width: unset;
@@ -478,6 +487,7 @@ section {
   color: white;
 }
 
+
 .showcases .cases {
   width: 100vw;
 }
@@ -495,4 +505,6 @@ section {
   /* 等比例缩放 */
   object-fit: cover;
 }
+
+/* #endregion Photos区域 */
 </style>
