@@ -2,7 +2,7 @@
 // 导入glide 模板， 需要改库的.d.ts文件
 import Glide from '@glidejs/glide'
 import { CaptionAnime } from './animate'
-
+import Isotope from 'isotope-layout'
 import { onMounted } from 'vue'
 
 onMounted(() => {
@@ -19,7 +19,37 @@ onMounted(() => {
   })
   // 挂在glide
   glide.mount()
+  photoLayout()
 })
+
+// 照片的布局
+function photoLayout() {
+  // 初始化 isotope
+  const isotope = new Isotope('.cases', {
+    layoutMode: 'masonry',
+    itemSelector: '.case-item',
+  })
+
+  // 过滤
+  const filterBtns = document.querySelector('.filter-btns') as Element
+  // 注册事件
+  filterBtns.addEventListener('click', (e) => {
+    // 获取被clicked的按钮, (断言target是HTMLElement类型)
+    let target = e.target as HTMLElement
+    // 获取 按钮的类别
+    const filterOption = target.getAttribute('data-filter') as string
+    if (filterOption) {
+      document.querySelectorAll('.filter-btn.active').forEach((btn) => {
+        // 移除激活状态
+        btn.classList.remove('active')
+      })
+      target.classList.add('active')
+    }
+    isotope.arrange({
+      filter: filterOption,
+    })
+  })
+}
 </script>
 
 <template>
@@ -62,7 +92,7 @@ onMounted(() => {
             <!-- 图片的遮罩层， 使得文字更加清晰 -->
           </div>
           <div class="backdrop"></div>
-          <img src="./assets/img/home_sw_bg_1.jpg" alt="" />
+          <img src="./assets/img/swiper_pics/home_sw_bg_1.jpg" alt="" />
         </div>
 
         <!-- 第二个滑块 -->
@@ -92,8 +122,9 @@ onMounted(() => {
     </div>
   </div>
 
-  <!-- 关于我们 -->
+  <!-- 各内容区域 -->
   <div class="content-wrapper">
+    <!-- 关于我们 -->
     <!-- 功能聚合 文档中的区段-->
     <section class="about-us">
       <h2 class="title1">关于我们</h2>
@@ -135,9 +166,54 @@ onMounted(() => {
           <h4 class="feature-title">网站建设</h4>
           <p class="feature-content">通过绑定域名和服务器，将网站展现给全世界</p>
         </div>
-      <!-- end features -->
+        <!-- end features -->
       </div>
+    </section>
 
+    <!-- 成功案例 -->
+    <section class="showcases section-bg">
+      <h2 class="title1">Photos</h2>
+      <!-- 过滤按钮 -->
+      <div class="filter-btns">
+        <button class="filter-btn active" data-filter="*">全部</button>
+        <button class="filter-btn" data-filter=".animal">动物</button>
+        <button class="filter-btn" data-filter=".scenery">风景</button>
+        <button class="filter-btn" data-filter=".character">人物</button>
+      </div>
+      <!-- 具体的案例 -->
+      <div class="cases">
+        <div class="case-item scenery">
+          <img src="./assets/img/case_pics/blue_water_bg.jpg" alt="" />
+        </div>
+
+        <div class="case-item character">
+          <img src="./assets/img/case_pics/bookshop_one_person.jpg" alt="" />
+        </div>
+
+        <div class="case-item scenery">
+          <img src="./assets/img/case_pics/seaside.jpg" alt="" />
+        </div>
+
+        <div class="case-item scenery">
+          <img src="./assets/img/case_pics/train_bridge_hole.jpg" alt="" />
+        </div>
+
+        <div class="case-item scenery">
+          <img src="./assets/img/case_pics/sun_pole_field.jpg" alt="" />
+        </div>
+
+        <div class="case-item scenery">
+          <img src="./assets/img/case_pics/tri_house.jpg" alt="" />
+        </div>
+
+        <div class="case-item scenery">
+          <img src="./assets/img/case_pics/weight_cloud.jpg" alt="" />
+        </div>
+
+        <div class="case-item animal">
+          <img src="./assets/img/case_pics/cat_sideby_rail.jpg" alt="" />
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -148,8 +224,6 @@ onMounted(() => {
 /* 导入glide css */
 @import '@glidejs/glide/dist/css/glide.core.min.css';
 @import '@glidejs/glide/dist/css/glide.theme.min.css';
-
-
 
 /* 头部 */
 .header {
@@ -269,14 +343,32 @@ onMounted(() => {
   align-items: center;
   /* flex是一维布局， 所以只有一个content */
   justify-content: center;
+  /* 按列布局 */
+  flex-direction: column;
 }
 
+/* 各内容 */
 section {
   display: grid;
   /* grid是二维，有很多列，对于每一个列的 水平上的居中方式, 与flex布局不同 */
   justify-items: center;
   max-width: 1180px;
   padding: 0 80px;
+}
+
+/* 成功案例的背景 */
+.section-bg {
+  position: relative;
+}
+.section-bg::before {
+  content: '';
+  display: block;
+  position: absolute;
+  background-color: #f9fbfb;
+  width: 100vw;
+  height: 100%;
+  /* 置于最底层 */
+  z-index: -1;
 }
 
 /* 内容标题 */
@@ -322,19 +414,19 @@ section {
   display: grid;
   /*  定位, 模板自定义名字，*/
   /* 自定义行的名字， 下面定义了 2行， 下面名字可以直接引用 */
-  grid-template-areas: 
-    "icon title"
-    "icon content";
-    /* 定义每个列的宽度, 60px图标的宽度， 1fr是剩余的给title/content */
-    grid-template-columns: 60px 1fr;
-    /* 标题占1/4, 内容占3/4 */
-    grid-template-rows: 1fr 3fr;
+  grid-template-areas:
+    'icon title'
+    'icon content';
+  /* 定义每个列的宽度, 60px图标的宽度， 1fr是剩余的给title/content */
+  grid-template-columns: 60px 1fr;
+  /* 标题占1/4, 内容占3/4 */
+  grid-template-rows: 1fr 3fr;
 }
 
 .feature svg {
   grid-area: icon;
   font-size: 34px;
-  color: var(--primary-color)
+  color: var(--primary-color);
 }
 
 .feature-title {
@@ -346,5 +438,61 @@ section {
 .feature-content {
   grid-area: content;
   color: var(--text-color-dark-gray);
+}
+
+/* 成功案例 */
+.showcases {
+  /* 还原最大宽度 */
+  max-width: unset;
+  padding: 0;
+  padding-top: 72px;
+}
+
+.filter-btns {
+  margin-top: 54px;
+  margin-bottom: 38px;
+}
+
+.filter-btn {
+  margin: 0 7px;
+  background-color: var(--secondary-color);
+  border: 0;
+  color: var(--text-color-dark-gray);
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+/* btn被选中时， btn被点击(激活)时的样式，(使用tab可以测试) */
+.filter-btn:focus,
+.filter-btn:active {
+  /* 取消轮廓 */
+  outline: none;
+}
+
+/* btn激活和鼠标悬浮 */
+.filter-btn.active,
+.filter-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.showcases .cases {
+  width: 100vw;
+}
+
+.showcases .case-item {
+  width: 25vw;
+  /* 使用vw， 保持宽高比一致 */
+  height: 20vw;
+  /* img超出的部分不可见 */
+  overflow: hidden;
+}
+
+.case-item img {
+  height: 100%;
+  /* 等比例缩放 */
+  object-fit: cover;
 }
 </style>
