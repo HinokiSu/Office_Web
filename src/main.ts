@@ -4,7 +4,8 @@ import App from './App.vue'
 /* 导入 fortawesome 核心 */
 import { library } from '@fortawesome/fontawesome-svg-core'
 
-import { faGithub, faTwitter, faWeibo, faWeixin } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faTwitter, faWeibo, faWeixin 
+} from '@fortawesome/free-brands-svg-icons'
 
 import {
   faSearch,
@@ -14,6 +15,9 @@ import {
   faDesktop,
   faGaugeSimple,
   faServer,
+  faCode,
+  faImages,
+  faPalette
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -29,7 +33,9 @@ library.add( faWeibo,
   faDesktop,
   faGaugeSimple,
   faServer,
-  
+  faCode,
+  faImages,
+  faPalette
 )
 
 const app = createApp(App)

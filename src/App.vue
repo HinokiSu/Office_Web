@@ -282,9 +282,25 @@ function photoLayout() {
             </li>
           </ul>
         </div>
+      </div>
+    </section>
 
-      
-
+    <!-- 数据部分 -->
+    <section class="data-section">
+      <div class="data-piece">
+        <fa icon="code" class="fa" />
+        <div class="num">156</div>
+        <div class="data-desc">行代码</div>
+      </div>
+      <div class="data-piece">
+        <fa icon="images" class="fa" />
+        <div class="num">156</div>
+        <div class="data-desc">个插画</div>
+      </div>
+      <div class="data-piece">
+        <fa icon="palette" class="fa" />
+        <div class="num">156</div>
+        <div class="data-desc">名画师</div>
       </div>
     </section>
   </div>
@@ -597,7 +613,6 @@ section {
 
   /* 栅格布局 */
   display: grid;
-
 }
 
 .profile-image {
@@ -609,7 +624,7 @@ section {
   height: 300px;
   object-fit: cover;
   /* 图片顶部与内容框齐平，并居中， 超出部分隐藏掉 x:center, y: top */
-  object-position: center top ;
+  object-position: center top;
 }
 
 .team-member .name {
@@ -640,4 +655,63 @@ section {
   transform: translateY(-20px) scale(1.05);
   box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.1);
 }
+/* #endregion  Team结束区域 */
+
+/*        #region 数据展示区域开始          */
+.data-section {
+  max-width: unset;
+  width: 100vw;
+  height: 255px;
+  background-image: url('./assets/img/case_pics/sunset_telephone_Pole.jpg');
+  /* 背景等比例缩放 */
+  background-size: cover;
+  background-position: center;
+
+  display: grid;
+  /* minmax()  auto是最小值， 220px是最大值吗最大不能超过220px */
+  grid-template-columns: repeat(3, minmax(auto, 220px));
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 20;
+}
+
+/* 遮罩 */
+.data-section::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: var(--backdrop-color);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.data-piece {
+  width: 250px;
+  display:grid;
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.data-piece .fa {
+  font-size: 40px;
+}
+
+.data-piece .num {
+  margin-top: 7px;
+  font-size: 38px;
+  font-weight: 600;
+}
+
+.data-piece .data-desc {
+  margin-top: 2px;
+  font-size: 18px;
+  font-weight: 500;
+}
+/* #endregion 数据展示区域结束 */
+
 </style>
