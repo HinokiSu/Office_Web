@@ -303,6 +303,63 @@ function photoLayout() {
         <div class="data-desc">名画师</div>
       </div>
     </section>
+
+    <!-- 动态部分 -->
+    <section class="trend-section">
+      <div class="title1">Trend</div>
+      <p class="intro">关注风格趋势</p>
+      <div class="trends">
+
+        <div class="trend">
+          <div class="act-img-wrapper">
+            <img src="./assets/img/case_pics/some_cloud.jpg" alt="" />
+          </div>
+          <div class="trend-meta">
+            <p class="date-published"><fa :icon="['far', 'calendar-days']" />2021年12月1日</p>
+          </div>
+          <div>
+            <p class="comments"><fa :icon="['far', 'comments']" />33条评论</p>
+          </div>
+          <h2 class="act-title">Cloud and Sky</h2>
+          <article>云与天，天与云，云亦天，天亦云，云中天，天中云，云云于天，沉于天。</article>
+          <button class="rademore-btn">阅读更多</button>
+          <div></div>
+        </div>
+
+        <div class="trend">
+          <div class="act-img-wrapper">
+            <img src="./assets/img/case_pics/some_cloud.jpg" alt="" />
+          </div>
+          <div class="trend-meta">
+            <p class="date-published"><fa :icon="['far', 'calendar-days']" />2021年12月1日</p>
+          </div>
+          <div>
+            <p class="comments"><fa :icon="['far', 'comments']" />33条评论</p>
+          </div>
+          <h2 class="act-title">Cloud and Sky</h2>
+          <article>云与天，天与云，云亦天，天亦云，云中天，天中云，云云于天，沉于天。</article>
+          <button class="rademore-btn">阅读更多</button>
+          <div></div>
+        </div>
+
+        <div class="trend">
+          <div class="act-img-wrapper">
+            <img src="./assets/img/case_pics/some_cloud.jpg" alt="" />
+          </div>
+          <div class="trend-meta">
+            <p class="date-published"><fa :icon="['far', 'calendar-days']" />2021年12月1日</p>
+          </div>
+          <div>
+            <p class="comments"><fa :icon="['far', 'comments']" />33条评论</p>
+          </div>
+          <h2 class="act-title">Cloud and Sky</h2>
+          <article>云与天，天与云，云亦天，天亦云，云中天，天中云，云云于天，沉于天。</article>
+          <button class="rademore-btn">阅读更多</button>
+          <div></div>
+        </div>
+
+      </div>
+    </section>
   </div>
 </template>
 
@@ -678,7 +735,7 @@ section {
 
 /* 遮罩 */
 .data-section::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   background-color: var(--backdrop-color);
@@ -689,7 +746,7 @@ section {
 
 .data-piece {
   width: 250px;
-  display:grid;
+  display: grid;
   grid-template-rows: repeat(3, 1fr);
   justify-items: center;
   color: white;
@@ -714,4 +771,42 @@ section {
 }
 /* #endregion 数据展示区域结束 */
 
+/* #region Trend 展示区域 */
+.trend-section {
+  margin-top: 80px;
+}
+
+
+.trends {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 24px;
+}
+
+.trend {
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  transition: 0.4s;
+}
+
+.act-img-wrapper {
+  height: 255px;
+  overflow: hidden;
+  /* 将padding填充的24px 抵消掉 */
+  margin: -24px;
+  margin-bottom: 0px;
+}
+
+.act-img-wrapper img {
+  min-height: 300px;
+  object-fit: cover;
+}
+
+.trend .meta {
+  margin-top: 20px;
+  margin-bottom: 12px;
+  color: var(--text-color-light-gray);
+}
+
+/* #endregion Trend 展示区域结束 */
 </style>

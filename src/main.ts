@@ -20,6 +20,8 @@ import {
   faPalette
 } from '@fortawesome/free-solid-svg-icons'
 
+import { faCalendarDays, faComments} from '@fortawesome/free-regular-svg-icons'
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // @ts-ignore , 导入brands类别的icon，会报错，由于ts无法识别IconDefinitionOrPack
 library.add( faWeibo,
@@ -35,7 +37,9 @@ library.add( faWeibo,
   faServer,
   faCode,
   faImages,
-  faPalette
+  faPalette,
+  faCalendarDays,
+  faComments
 )
 
 const app = createApp(App)
