@@ -65,7 +65,7 @@ function photoLayout() {
       <a href="#">公司动态</a>
       <!-- search button -->
       <a href="#">
-        <font-awesome-icon icon="search"></font-awesome-icon>
+        <fa icon="search"></fa>
       </a>
     </nav>
   </div>
@@ -132,37 +132,37 @@ function photoLayout() {
       <!-- 各特征feature -->
       <div class="features">
         <div class="feature">
-          <font-awesome-icon class="fa" icon="lightbulb" />
+          <fa class="fa" icon="lightbulb" />
           <h4 class="feature-title">品牌创意</h4>
           <p class="feature-content">组件化、响应式</p>
         </div>
 
         <div class="feature">
-          <font-awesome-icon class="fa" icon="chart-line" />
+          <fa class="fa" icon="chart-line" />
           <h4 class="feature-title">整合营销</h4>
           <p class="feature-content">市场分析、制定营销策略</p>
         </div>
 
         <div class="feature">
-          <font-awesome-icon class="fa" icon="cart-shopping" />
+          <fa class="fa" icon="cart-shopping" />
           <h4 class="feature-title">电子商务</h4>
           <p class="feature-content">根据企业需求，开设不同销售渠道，通过网上直销</p>
         </div>
 
         <div class="feature">
-          <font-awesome-icon class="fa" icon="desktop" />
+          <fa class="fa" icon="desktop" />
           <h4 class="feature-title">网页设计</h4>
           <p class="feature-content">通过网站建设、智能建站、域名主机、企业邮箱</p>
         </div>
 
         <div class="feature">
-          <font-awesome-icon class="fa" icon="gauge-simple" />
+          <fa class="fa" icon="gauge-simple" />
           <h4 class="feature-title">网站优化</h4>
           <p class="feature-content">网站推广，推送到各大知名网站和搜索引擎</p>
         </div>
 
         <div class="feature">
-          <font-awesome-icon class="fa" icon="server" />
+          <fa class="fa" icon="server" />
           <h4 class="feature-title">网站建设</h4>
           <p class="feature-content">通过绑定域名和服务器，将网站展现给全世界</p>
         </div>
@@ -170,7 +170,7 @@ function photoLayout() {
       </div>
     </section>
 
-    <!-- 成功案例 -->
+    <!-- Photos -->
     <section class="showcases section-bg">
       <h2 class="title1">Photos</h2>
       <!-- 过滤按钮 -->
@@ -213,6 +213,78 @@ function photoLayout() {
         <div class="case-item animal">
           <img src="./assets/img/case_pics/cat_sideby_rail.jpg" alt="" />
         </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team-intro section-bg">
+      <h2 class="title1">Team</h2>
+      <div class="team-members">
+        <div class="team-member">
+          <div class="profile-image">
+            <img src="./assets/img/members/m1.png" alt="" />
+          </div>
+          <h4 class="name">Yileina</h4>
+          <ul class="social-links">
+            <li>
+              <a href=""><fa :icon="['fab', 'github']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'twitter']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'weibo']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'weixin']" /></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="team-member">
+          <div class="profile-image">
+            <img src="./assets/img/members/m2.jpg" alt="" />
+          </div>
+          <h4 class="name">Yuse</h4>
+          <ul class="social-links">
+            <li>
+              <a href=""><fa :icon="['fab', 'github']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'twitter']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'weibo']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'weixin']" /></a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="team-member">
+          <div class="profile-image">
+            <img src="./assets/img/members/m3.png" alt="" />
+          </div>
+          <h4 class="name">Fox</h4>
+          <ul class="social-links">
+            <li>
+              <a href=""><fa :icon="['fab', 'github']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'twitter']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'weibo']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'weixin']" /></a>
+            </li>
+          </ul>
+        </div>
+
+      
+
       </div>
     </section>
   </div>
@@ -348,8 +420,6 @@ function photoLayout() {
   flex-direction: column;
 }
 
-
-
 /* 各区域的 内容 */
 section {
   display: grid;
@@ -364,7 +434,6 @@ section {
   font-size: 34px;
   color: var(--text-color-darker);
 }
-
 
 /* 各内容区域的 背景 */
 .section-bg {
@@ -381,8 +450,6 @@ section {
   /* 置于最底层 */
   z-index: -1;
 }
-
-
 
 /* 在.title1元素后 插入新内容 */
 .title1::after {
@@ -487,7 +554,6 @@ section {
   color: white;
 }
 
-
 .showcases .cases {
   width: 100vw;
 }
@@ -505,6 +571,73 @@ section {
   /* 等比例缩放 */
   object-fit: cover;
 }
-
 /* #endregion Photos区域 */
+
+/*                 #region  Team介绍区域         */
+.team-intro {
+  margin-top: 48px;
+  padding-top: 62px;
+  padding-bottom: 52px;
+}
+/* members 容器 */
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 36px;
+  margin-top: 86px;
+}
+
+/* member */
+.team-member {
+  background-color: white;
+  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding-bottom: 28px;
+  transition: 0.4s;
+
+  /* 栅格布局 */
+  display: grid;
+
+}
+
+.profile-image {
+  overflow: hidden;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  /* 图片顶部与内容框齐平，并居中， 超出部分隐藏掉 x:center, y: top */
+  object-position: center top ;
+}
+
+.team-member .name {
+  margin-top: 18px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-color-dark);
+  padding-bottom: 10px;
+}
+.social-links {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 46px;
+}
+
+.social-links li {
+  list-style: none;
+}
+
+.social-links a {
+  color: var(--text-color-dark);
+  text-decoration: none;
+}
+
+.team-member:hover {
+  transform: translateY(-20px) scale(1.05);
+  box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.1);
+}
 </style>
