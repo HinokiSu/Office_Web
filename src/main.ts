@@ -17,7 +17,8 @@ import {
   faServer,
   faCode,
   faImages,
-  faPalette
+  faPalette,
+  faChevronUp
 } from '@fortawesome/free-solid-svg-icons'
 
 import { faCalendarDays, faComments} from '@fortawesome/free-regular-svg-icons'
@@ -39,7 +40,8 @@ library.add( faWeibo,
   faImages,
   faPalette,
   faCalendarDays,
-  faComments
+  faComments,
+  faChevronUp
 )
 
 const app = createApp(App)

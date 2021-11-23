@@ -335,7 +335,7 @@ function photoLayout() {
           <button class="readmore-btn">阅读更多</button>
         </div>
 
-       <div class="trend">
+        <div class="trend">
           <div class="act-img-wrapper">
             <img src="./assets/img/case_pics/road_snow_mountain.jpg" alt="" />
           </div>
@@ -350,6 +350,50 @@ function photoLayout() {
       </div>
     </section>
   </div>
+  <footer>
+    <div class="footer-menus">
+      <div class="contact-us">
+        <p class="menu-title">联系我们</p>
+        <p>Location: SuZhou</p>
+        <p>Tel: 620000</p>
+        <p>E-mali: Hinoki@office.com</p>
+      </div>
+
+      <div class="sevice-menu footer-menu">
+        <p class="menu-title">Service</p>
+        <ul class="menu-items">
+          <li><a href="#">Search</a></li>
+          <li><a href="#">Find</a></li>
+          <li><a href="#">Design</a></li>
+        </ul>
+      </div>
+
+      <div class="sevice-menu footer-menu">
+        <p class="menu-title">Photos</p>
+        <ul class="menu-items">
+          <li><a href="#">Character</a></li>
+          <li><a href="#">Animal</a></li>
+          <li><a href="#">Scenery</a></li>
+        </ul>
+      </div>
+
+      <div class="sevice-menu footer-menu">
+        <p class="menu-title">Trend</p>
+        <ul class="menu-items">
+          <li><a href="#">CurrentInfo</a></li>
+          <li><a href="#">Recent</a></li>
+          <li><a href="#">News</a></li>
+        </ul>
+      </div>
+
+      <p class="icp-info">苏ICP备 1234567</p>
+      <p class="rights">&copy; 2021 Hinoki Office - Hinoki Co.,Ltd 版权所有</p>
+    </div>
+    <div class="scrollToTop">
+    <a href="#"><fa icon="chevron-up" /></a>
+  </div>
+  </footer>
+  
 </template>
 
 <style>
@@ -809,7 +853,6 @@ section {
 /* >直接元素,第一层， :last-child最后一个子元素 */
 .trend .meta > p:last-child {
   margin-left: 36px;
-  
 }
 
 .act-title {
@@ -839,4 +882,85 @@ section {
 }
 
 /* #endregion Trend 展示区域结束 */
+
+/*        #region  footer区域开始         */
+/* 底部信息 */
+footer {
+  margin-top: 120px;
+  background-color: #181818;
+  display: grid;
+  justify-items: center;
+  padding-top: 40px;
+  padding-bottom: 16px;
+}
+
+.footer-menus {
+  width: 100%;
+  max-width: 1180px;
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  padding: 0 40px;
+  position: relative;
+}
+
+.menu-title {
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.contact-us {
+  justify-self: start;
+  color: var(--text-color-lightest);
+}
+
+/* 选中的p不是第一个 */
+.contact-us p:not(:first-child) {
+  padding-bottom: 16px;
+}
+
+.menu-items li {
+  list-style: none;
+  padding-bottom: 8px;
+}
+
+.menu-items li a {
+  text-decoration: none;
+  font-weight: 300;
+  color: var(--text-color-lightest);
+}
+
+.icp-info {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.icp-info,
+.rights {
+  /* 第一条分割线， -1最后一条分割线 */
+  grid-column: 1 / -1;
+  justify-self: center;
+  color: white;
+}
+
+/* #endregion  footer结束区域 */
+
+/* 返回顶部按钮 */
+.scrollToTop a {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: white;
+
+  text-decoration: none;
+  /* 漂浮 */
+  position: fixed;
+  bottom: 60px;
+  right: 30px;
+}
 </style>
