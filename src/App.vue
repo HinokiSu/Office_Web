@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // 导入glide 模板， 需要改库的.d.ts文件
 import Glide from '@glidejs/glide'
-import { CaptionAnime } from './animate'
+import { CaptionAnime, dataDynamicShow } from './animate'
 import Isotope from 'isotope-layout'
 import { onMounted } from 'vue'
+import ScrollReveal from 'scrollreveal'
 
 onMounted(() => {
   // 初始化glide
@@ -19,27 +20,51 @@ onMounted(() => {
   })
   // 挂在glide
   glide.mount()
-  const filterBtns = document.querySelector('.filter-btns') 
+
+  const filterBtns = document.querySelector('.filter-btns')
   // 图片布局
   photoLayout(filterBtns)
 
   const headerEl: any = document.querySelector('.header')
   const ToTopEl: any = document.querySelector('.scrollToTop')
+  const dataSectionEl: any = document.querySelector('.data-section')
   window.addEventListener('scroll', () => {
     // 导航出现
     headerFixed(headerEl)
     ScrollToTop(ToTopEl)
+    DataSectionBgChange(dataSectionEl)
+  })
+
+  // scrollreveal通用属性
+  const staggeringOption = {
+    delay: 300,
+    distance: '50px',
+    duration: 500,
+    easing: 'ease-in-out',
+    origin: 'bottom',
+  }
+  // about-us feature显示效果
+  ScrollReveal().reveal('.feature', { ...staggeringOption, interval: 350 })
+
+  // 数据动态显示
+  ScrollReveal().reveal('.data-section', {
+    // 在显示完成时触发的函数
+    beforeReveal: () => {
+      // anime效果
+      dataDynamicShow()
+      dataSectionEl.style.backgroundPosition = `center calc(50% - ${dataSectionEl.getBoundingClientRect().bottom / 5}px`
+    },
   })
 })
 
 // 照片的布局
-function photoLayout(filterBtns:HTMLElement | any) {
+function photoLayout(filterBtns: HTMLElement | any) {
   // 初始化 isotope
   const isotope = new Isotope('.cases', {
     layoutMode: 'masonry',
     itemSelector: '.case-item',
   })
-  
+
   // 注册事件
   filterBtns.addEventListener('click', (e: { target: HTMLElement }) => {
     // 获取被clicked的按钮, (断言target是HTMLElement类型)
@@ -82,6 +107,16 @@ function ScrollToTop(ToTopEl: Element | any) {
     ToTopEl.style.display = 'block'
   } else {
     ToTopEl.style.display = 'none'
+  }
+}
+
+// 数据显示区域的背景动态效果
+function DataSectionBgChange(el: HTMLElement) {
+  const bottom = el.getBoundingClientRect().bottom
+  const top = el.getBoundingClientRect().top
+  // 当
+  if (bottom >= 0 && top < window.innerHeight) {
+    el.style.backgroundPosition = `center calc(50% - ${el.getBoundingClientRect().bottom / 5}px`
   }
 }
 </script>

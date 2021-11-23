@@ -44,6 +44,7 @@ library.add( faWeibo,
   faChevronUp
 )
 
+
 const app = createApp(App)
 app.component('fa', FontAwesomeIcon)
 app.mount('#app')
