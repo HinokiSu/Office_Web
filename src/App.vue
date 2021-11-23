@@ -19,23 +19,31 @@ onMounted(() => {
   })
   // 挂在glide
   glide.mount()
-  photoLayout()
+  const filterBtns = document.querySelector('.filter-btns') 
+  // 图片布局
+  photoLayout(filterBtns)
+
+  const headerEl: any = document.querySelector('.header')
+  const ToTopEl: any = document.querySelector('.scrollToTop')
+  window.addEventListener('scroll', () => {
+    // 导航出现
+    headerFixed(headerEl)
+    ScrollToTop(ToTopEl)
+  })
 })
 
 // 照片的布局
-function photoLayout() {
+function photoLayout(filterBtns:HTMLElement | any) {
   // 初始化 isotope
   const isotope = new Isotope('.cases', {
     layoutMode: 'masonry',
     itemSelector: '.case-item',
   })
-
-  // 过滤
-  const filterBtns = document.querySelector('.filter-btns') as Element
+  
   // 注册事件
-  filterBtns.addEventListener('click', (e) => {
+  filterBtns.addEventListener('click', (e: { target: HTMLElement }) => {
     // 获取被clicked的按钮, (断言target是HTMLElement类型)
-    let target = e.target as HTMLElement
+    let target = e.target
     // 获取 按钮的类别
     const filterOption = target.getAttribute('data-filter') as string
     if (filterOption) {
@@ -49,6 +57,32 @@ function photoLayout() {
       filter: filterOption,
     })
   })
+}
+
+// 导航的出现函数
+function headerFixed(headerEl: Element | any) {
+  // 获取.header的高度
+  let headerHeight = headerEl.getBoundingClientRect().height
+  // 当下滑的height > 800时，添加sticky，固定导航显示
+  if (window.pageYOffset - headerHeight > 420) {
+    // 判断.header中是否含有sticky类名
+    if (!headerEl.classList.contains('sticky')) {
+      headerEl.classList.add('sticky')
+    }
+  } else {
+    headerEl.classList.remove('sticky')
+  }
+}
+
+// 回到顶部按钮
+function ScrollToTop(ToTopEl: Element | any) {
+  // console.log(ToTopEl)
+  if (window.pageYOffset > 2000) {
+    // 重新设置按钮的display 样式属性
+    ToTopEl.style.display = 'block'
+  } else {
+    ToTopEl.style.display = 'none'
+  }
 }
 </script>
 
@@ -350,6 +384,7 @@ function photoLayout() {
       </div>
     </section>
   </div>
+
   <footer>
     <div class="footer-menus">
       <div class="contact-us">
@@ -390,10 +425,9 @@ function photoLayout() {
       <p class="rights">&copy; 2021 Hinoki Office - Hinoki Co.,Ltd 版权所有</p>
     </div>
     <div class="scrollToTop">
-    <a href="#"><fa icon="chevron-up" /></a>
-  </div>
+      <a href="#"><fa icon="chevron-up" /></a>
+    </div>
   </footer>
-  
 </template>
 
 <style>
@@ -415,6 +449,33 @@ function photoLayout() {
   align-items: center;
   position: relative;
   z-index: 200;
+}
+
+.header.sticky {
+  position: fixed;
+  background-color: white;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+  /* ease-in-out 开始和结束过渡效果较慢，中间匀速 */
+  /* forwards 在animation结束时，保存其最后一帧, 是animation-fill-mode的一个属性值 */
+  animation: dropDown 0.5s ease-in-out forwards;
+}
+
+.header.sticky .logo,
+.header.sticky nav a,
+.header.sticky nav i {
+  color: var(--text-color-dark);
+}
+
+/* header 下滑的动态效果 */
+@keyframes dropDown {
+  from {
+    transform: translateY(-100px);
+  }
+
+  /* 去 */
+  to {
+    transform: translateY(0);
+  }
 }
 
 .logo {
@@ -946,6 +1007,12 @@ footer {
 
 /* #endregion  footer结束区域 */
 
+.scrollToTop {
+  display: none;
+  position: relative;
+  /* 设置z-index必须设置position */
+  z-index: 300;
+}
 /* 返回顶部按钮 */
 .scrollToTop a {
   width: 32px;
