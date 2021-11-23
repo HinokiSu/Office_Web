@@ -309,55 +309,44 @@ function photoLayout() {
       <div class="title1">Trend</div>
       <p class="intro">关注风格趋势</p>
       <div class="trends">
-
         <div class="trend">
           <div class="act-img-wrapper">
             <img src="./assets/img/case_pics/some_cloud.jpg" alt="" />
           </div>
-          <div class="trend-meta">
-            <p class="date-published"><fa :icon="['far', 'calendar-days']" />2021年12月1日</p>
-          </div>
-          <div>
-            <p class="comments"><fa :icon="['far', 'comments']" />33条评论</p>
+          <div class="meta">
+            <p class="date-published"><fa :icon="['far', 'calendar-days']" class="far" />2021年12月1日</p>
+            <p class="comments"><fa :icon="['far', 'comments']" class="far" />33条评论</p>
           </div>
           <h2 class="act-title">Cloud and Sky</h2>
           <article>云与天，天与云，云亦天，天亦云，云中天，天中云，云云于天，沉于天。</article>
-          <button class="rademore-btn">阅读更多</button>
-          <div></div>
+          <button class="readmore-btn">阅读更多</button>
         </div>
 
         <div class="trend">
           <div class="act-img-wrapper">
-            <img src="./assets/img/case_pics/some_cloud.jpg" alt="" />
+            <img src="./assets/img/case_pics/house_sky_reflection.jpg" alt="" />
           </div>
-          <div class="trend-meta">
-            <p class="date-published"><fa :icon="['far', 'calendar-days']" />2021年12月1日</p>
-          </div>
-          <div>
-            <p class="comments"><fa :icon="['far', 'comments']" />33条评论</p>
+          <div class="meta">
+            <p class="date-published"><fa :icon="['far', 'calendar-days']" class="far" />2021年12月1日</p>
+            <p class="comments"><fa :icon="['far', 'comments']" class="far" />33条评论</p>
           </div>
           <h2 class="act-title">Cloud and Sky</h2>
           <article>云与天，天与云，云亦天，天亦云，云中天，天中云，云云于天，沉于天。</article>
-          <button class="rademore-btn">阅读更多</button>
-          <div></div>
+          <button class="readmore-btn">阅读更多</button>
         </div>
 
-        <div class="trend">
+       <div class="trend">
           <div class="act-img-wrapper">
-            <img src="./assets/img/case_pics/some_cloud.jpg" alt="" />
+            <img src="./assets/img/case_pics/road_snow_mountain.jpg" alt="" />
           </div>
-          <div class="trend-meta">
-            <p class="date-published"><fa :icon="['far', 'calendar-days']" />2021年12月1日</p>
-          </div>
-          <div>
-            <p class="comments"><fa :icon="['far', 'comments']" />33条评论</p>
+          <div class="meta">
+            <p class="date-published"><fa :icon="['far', 'calendar-days']" class="far" />2021年12月1日</p>
+            <p class="comments"><fa :icon="['far', 'comments']" class="far" />33条评论</p>
           </div>
           <h2 class="act-title">Cloud and Sky</h2>
           <article>云与天，天与云，云亦天，天亦云，云中天，天中云，云云于天，沉于天。</article>
-          <button class="rademore-btn">阅读更多</button>
-          <div></div>
+          <button class="readmore-btn">阅读更多</button>
         </div>
-
       </div>
     </section>
   </div>
@@ -776,7 +765,6 @@ section {
   margin-top: 80px;
 }
 
-
 .trends {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -806,6 +794,48 @@ section {
   margin-top: 20px;
   margin-bottom: 12px;
   color: var(--text-color-light-gray);
+
+  display: flex;
+}
+
+.trend .meta .far {
+  margin-right: 4px;
+}
+
+.trend .meta p {
+  font-size: 12px;
+}
+
+/* >直接元素,第一层， :last-child最后一个子元素 */
+.trend .meta > p:last-child {
+  margin-left: 36px;
+  
+}
+
+.act-title {
+  color: var(--text-color-dark);
+  font: size 18px;
+  margin: 10px 0;
+}
+
+.trend article {
+  color: var(--text-color-gray);
+  letter-spacing: 0.5px;
+  line-height: 24px;
+}
+
+.readmore-btn {
+  border: 0;
+  color: white;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  padding: 6px 14px;
+  margin-top: 14px;
+}
+
+.trend:hover {
+  transform: translateY(-20px) scale(1.05);
+  box-shadow: 0 0 36px rgba(0, 0, 0, 0.1);
 }
 
 /* #endregion Trend 展示区域结束 */
