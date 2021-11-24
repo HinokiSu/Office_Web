@@ -3,12 +3,12 @@
 ## Vite2 + Vue 3 + TypeScript
 
 # 使用的 静态库
-1. [animejs](https://github.com/juliangarnier/anime) 
-2. [glidejs](https://github.com/glidejs/glide)
+1. [animejs](https://github.com/juliangarnier/anime) `动画`
+2. [glidejs](https://github.com/glidejs/glide) `轮播`
 3. [isotope](https://github.com/metafizzy/isotope) `布局`
-4. [scrollreveal](https://github.com/jlmakes/scrollreveal)
+4. [scrollreveal](https://github.com/jlmakes/scrollreveal) `滚轮动画效果`
 5. [FontAwesome](https://fontawesome.com/v6.0/docs/web/use-with/vue/) `字体库`
-
+6. [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll) `平滑滚动`
 
 
 ## BUG 记录

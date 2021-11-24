@@ -5,8 +5,38 @@ import { CaptionAnime, dataDynamicShow } from './animate'
 import Isotope from 'isotope-layout'
 import { onMounted } from 'vue'
 import ScrollReveal from 'scrollreveal'
+import SmoothScroll from 'smooth-scroll'
 
 onMounted(() => {
+  // 轮播
+  SetGlide()
+  const filterBtns = document.querySelector('.filter-btns')
+  // 图片布局
+  SetPhotoLayout(filterBtns)
+
+  const headerEl: any = document.querySelector('.header')
+  const ToTopEl: any = document.querySelector('.scrollToTop')
+  const dataSectionEl: any = document.querySelector('.data-section')
+  // 添加全局监听事件
+  window.addEventListener('scroll', () => {
+    // 导航出现
+    FixedHeader(headerEl)
+    ToTopScroll(ToTopEl)
+    DataSectionBgChange(dataSectionEl)
+  })
+
+  SetScrollReveal(dataSectionEl)
+
+  // 设置顺滑滚动效果
+  SetSmoothScroll() 
+  // 折叠导航
+  FlodNav(headerEl)
+  // 收起展开的导航
+  PackUpNav(headerEl)
+ 
+})
+
+function SetGlide() {
   // 初始化glide
   const glide: any = new Glide('.glide')
 
@@ -20,45 +50,10 @@ onMounted(() => {
   })
   // 挂在glide
   glide.mount()
-
-  const filterBtns = document.querySelector('.filter-btns')
-  // 图片布局
-  photoLayout(filterBtns)
-
-  const headerEl: any = document.querySelector('.header')
-  const ToTopEl: any = document.querySelector('.scrollToTop')
-  const dataSectionEl: any = document.querySelector('.data-section')
-  window.addEventListener('scroll', () => {
-    // 导航出现
-    headerFixed(headerEl)
-    ScrollToTop(ToTopEl)
-    DataSectionBgChange(dataSectionEl)
-  })
-
-  // scrollreveal通用属性
-  const staggeringOption = {
-    delay: 300,
-    distance: '50px',
-    duration: 500,
-    easing: 'ease-in-out',
-    origin: 'bottom',
-  }
-  // about-us feature显示效果
-  ScrollReveal().reveal('.feature', { ...staggeringOption, interval: 350 })
-
-  // 数据动态显示
-  ScrollReveal().reveal('.data-section', {
-    // 在显示完成时触发的函数
-    beforeReveal: () => {
-      // anime效果
-      dataDynamicShow()
-      dataSectionEl.style.backgroundPosition = `center calc(50% - ${dataSectionEl.getBoundingClientRect().bottom / 5}px`
-    },
-  })
-})
+}
 
 // 照片的布局
-function photoLayout(filterBtns: HTMLElement | any) {
+function SetPhotoLayout(filterBtns: HTMLElement | any) {
   // 初始化 isotope
   const isotope = new Isotope('.cases', {
     layoutMode: 'masonry',
@@ -84,8 +79,32 @@ function photoLayout(filterBtns: HTMLElement | any) {
   })
 }
 
+//
+function SetScrollReveal(el:HTMLElement) {
+  // scrollreveal通用属性
+  const staggeringOption = {
+    delay: 300,
+    distance: '50px',
+    duration: 500,
+    easing: 'ease-in-out',
+    origin: 'bottom',
+  }
+  // about-us feature显示效果
+  ScrollReveal().reveal('.feature', { ...staggeringOption, interval: 350 })
+
+  // 数据动态显示
+  ScrollReveal().reveal('.data-section', {
+    // 在显示完成时触发的函数
+    beforeReveal: () => {
+      // anime效果
+      dataDynamicShow()
+      el.style.backgroundPosition = `center calc(50% - ${el.getBoundingClientRect().bottom / 5}px`
+    },
+  })
+}
+
 // 导航的出现函数
-function headerFixed(headerEl: Element | any) {
+function FixedHeader(headerEl: Element | any) {
   // 获取.header的高度
   let headerHeight = headerEl.getBoundingClientRect().height
   // 当下滑的height > 800时，添加sticky，固定导航显示
@@ -100,7 +119,7 @@ function headerFixed(headerEl: Element | any) {
 }
 
 // 回到顶部按钮
-function ScrollToTop(ToTopEl: Element | any) {
+function ToTopScroll(ToTopEl: Element | any) {
   // console.log(ToTopEl)
   if (window.pageYOffset > 2000) {
     // 重新设置按钮的display 样式属性
@@ -119,6 +138,39 @@ function DataSectionBgChange(el: HTMLElement) {
     el.style.backgroundPosition = `center calc(50% - ${el.getBoundingClientRect().bottom / 5}px`
   }
 }
+
+// 折叠按钮动态效果
+function FlodNav(headerEl: HTMLElement) {
+  const burgerEl: any = document.querySelector('.burger')
+  burgerEl.addEventListener('click', () => {
+    headerEl.classList.toggle('open')
+  })
+}
+
+// 收起展开的导航
+function PackUpNav(el: HTMLElement) {
+  document.addEventListener('scrollStart', () => {
+    if (el.classList.contains('open')) {
+      el.classList.remove('open')
+    }
+  })
+}
+
+function SetSmoothScroll() {
+  // 平滑滚动
+  const scroll = new SmoothScroll('nav a[href*="#"], .scrollToTop a[href*="#"]', {
+    header: '.header',
+    offset: 80,
+  })
+
+  const exploreBtnEls = document.querySelectorAll('.explore-btn')
+
+  exploreBtnEls.forEach((btnEl) => {
+    btnEl.addEventListener('click', () => {
+      scroll.animateScroll(document.querySelector('#about-us'))
+    })
+  })
+}
 </script>
 
 <template>
@@ -126,28 +178,28 @@ function DataSectionBgChange(el: HTMLElement) {
   <div class="header">
     <div class="logo">Hinoki Office</div>
     <nav>
-      <a href="#">首页</a>
-      <a href="#">关于我们</a>
-      <a href="#">成功案例</a>
-      <a href="#">服务流程</a>
-      <a href="#">团队介绍</a>
-      <a href="#">公司动态</a>
+      <a href="#home">首页</a>
+      <a href="#about-us">关于我们</a>
+      <a href="#showcases">成功案例</a>
+      <a href="#data-section">数据展示</a>
+      <a href="#team-section">团队介绍</a>
+      <a href="#trend-section">公司动态</a>
       <!-- search button -->
       <a href="#">
-        <fa icon="search"></fa>
+        <fa icon="search" class="fa"></fa>
       </a>
     </nav>
-  </div>
 
-  <div class="burger">
-    <!-- fast create: burger-line-$*3 -->
-    <div class="burger-line-1"></div>
-    <div class="burger-line-2"></div>
-    <div class="burger-line-3"></div>
+    <div class="burger">
+      <!-- fast create: burger-line-$*3 -->
+      <div class="burger-line-1"></div>
+      <div class="burger-line-2"></div>
+      <div class="burger-line-3"></div>
+    </div>
   </div>
 
   <!-- 轮播图Swiper -->
-  <div class="glide">
+  <div id="home" class="glide">
     <div class="glide__track" data-glide-el="track">
       <!-- 滑块容器 -->
       <div class="glide__slides">
@@ -195,7 +247,7 @@ function DataSectionBgChange(el: HTMLElement) {
   <div class="content-wrapper">
     <!-- 关于我们 -->
     <!-- 功能聚合 文档中的区段-->
-    <section class="about-us">
+    <section id="about-us" class="about-us">
       <h2 class="title1">关于我们</h2>
       <p class="intro">本网站学习实例，使用Vite2.0 + Vue3 + TS, 使用Glide、Anime、FontAwesome等静态库。</p>
       <!-- 各特征feature -->
@@ -240,7 +292,7 @@ function DataSectionBgChange(el: HTMLElement) {
     </section>
 
     <!-- Photos -->
-    <section class="showcases section-bg">
+    <section id="showcases" class="showcases section-bg">
       <h2 class="title1">Photos</h2>
       <!-- 过滤按钮 -->
       <div class="filter-btns">
@@ -286,7 +338,7 @@ function DataSectionBgChange(el: HTMLElement) {
     </section>
 
     <!-- Team -->
-    <section class="team-intro section-bg">
+    <section id="team-section" class="team-intro section-bg">
       <h2 class="title1">Team</h2>
       <div class="team-members">
         <div class="team-member">
@@ -351,11 +403,31 @@ function DataSectionBgChange(el: HTMLElement) {
             </li>
           </ul>
         </div>
+        <div class="team-member">
+          <div class="profile-image">
+            <img src="./assets/img/members/m2.jpg" alt="" />
+          </div>
+          <h4 class="name">Yuse</h4>
+          <ul class="social-links">
+            <li>
+              <a href=""><fa :icon="['fab', 'github']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'twitter']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'weibo']" /></a>
+            </li>
+            <li>
+              <a href=""><fa :icon="['fab', 'weixin']" /></a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <!-- 数据部分 -->
-    <section class="data-section">
+    <section id="data-section" class="data-section">
       <div class="data-piece">
         <fa icon="code" class="fa" />
         <div class="num">156</div>
@@ -371,10 +443,15 @@ function DataSectionBgChange(el: HTMLElement) {
         <div class="num">156</div>
         <div class="data-desc">名画师</div>
       </div>
+      <div class="data-piece">
+        <fa icon="palette" class="fa" />
+        <div class="num">156</div>
+        <div class="data-desc">名画师</div>
+      </div>
     </section>
 
     <!-- 动态部分 -->
-    <section class="trend-section">
+    <section id="trend-section" class="trend-section">
       <div class="title1">Trend</div>
       <p class="intro">关注风格趋势</p>
       <div class="trends">
@@ -407,6 +484,19 @@ function DataSectionBgChange(el: HTMLElement) {
         <div class="trend">
           <div class="act-img-wrapper">
             <img src="./assets/img/case_pics/road_snow_mountain.jpg" alt="" />
+          </div>
+          <div class="meta">
+            <p class="date-published"><fa :icon="['far', 'calendar-days']" class="far" />2021年12月1日</p>
+            <p class="comments"><fa :icon="['far', 'comments']" class="far" />33条评论</p>
+          </div>
+          <h2 class="act-title">Cloud and Sky</h2>
+          <article>云与天，天与云，云亦天，天亦云，云中天，天中云，云云于天，沉于天。</article>
+          <button class="readmore-btn">阅读更多</button>
+        </div>
+
+        <div class="trend">
+          <div class="act-img-wrapper">
+            <img src="./assets/img/case_pics/purple_sky.jpg" alt="" />
           </div>
           <div class="meta">
             <p class="date-published"><fa :icon="['far', 'calendar-days']" class="far" />2021年12月1日</p>
@@ -456,11 +546,20 @@ function DataSectionBgChange(el: HTMLElement) {
         </ul>
       </div>
 
+      <div class="sevice-menu footer-menu">
+        <p class="menu-title">Photos</p>
+        <ul class="menu-items">
+          <li><a href="#">Character</a></li>
+          <li><a href="#">Animal</a></li>
+          <li><a href="#">Scenery</a></li>
+        </ul>
+      </div>
+
       <p class="icp-info">苏ICP备 1234567</p>
       <p class="rights">&copy; 2021 Hinoki Office - Hinoki Co.,Ltd 版权所有</p>
     </div>
     <div class="scrollToTop">
-      <a href="#"><fa icon="chevron-up" /></a>
+      <a href="#home"><fa icon="chevron-up" /></a>
     </div>
   </footer>
 </template>
@@ -784,7 +883,7 @@ section {
 /* members 容器 */
 .team-members {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   column-gap: 36px;
   margin-top: 86px;
 }
@@ -855,7 +954,7 @@ section {
 
   display: grid;
   /* minmax()  auto是最小值， 220px是最大值吗最大不能超过220px */
-  grid-template-columns: repeat(3, minmax(auto, 220px));
+  grid-template-columns: repeat(4, minmax(auto, 220px));
   justify-content: center;
   align-items: center;
   position: relative;
@@ -907,7 +1006,7 @@ section {
 
 .trends {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   column-gap: 24px;
 }
 
@@ -1064,5 +1163,269 @@ footer {
   position: fixed;
   bottom: 60px;
   right: 30px;
+}
+
+/* #region 响应式 */
+
+@media (max-width: 1100px) {
+  .header nav {
+    display: none;
+  }
+
+  .header {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 折叠导航burger */
+  .header .burger {
+    display: block;
+    width: 20px;
+    height: 6px;
+    position: relative;
+    justify-self: end;
+    cursor: pointer;
+  }
+
+  .burger-line-1,
+  .burger-line-2,
+  .burger-line-3 {
+    width: 20px;
+    height: 2px;
+    background-color: var(--text-color-lightest);
+  }
+
+  .burger-line-1 {
+    position: absolute;
+    top: -5px;
+  }
+
+  .burger-line-3 {
+    position: absolute;
+    top: 5px;
+  }
+
+  /* open */
+  .header.open nav {
+    display: grid;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    /* 设置行轨道 取 内容的最大值的宽度 */
+    grid-auto-rows: max-content;
+    justify-items: end;
+
+    padding: 0 40px;
+
+    opacity: 0;
+    /* anime */
+    animation: slideDown 0.6s ease-out forwards;
+  }
+
+  .header.open nav > * {
+    color: var(--text-color-darker);
+    animation: showMenu 0.5s linear forwards 0.4s;
+
+    font-size: 18px;
+    margin: 4px 0;
+    opacity: 0;
+  }
+
+  .header.open nav > a .fa {
+    margin-top: 8px;
+  }
+
+  /* 折叠按钮的三条线 */
+
+  .header.open .burger-line-1,
+  .header.open .burger-line-2,
+  .header.open .burger-line-3,
+  .header.sticky .burger-line-1,
+  .header.sticky .burger-line-2,
+  .header.sticky .burger-line-3 {
+    background-color: var(--text-color-darker);
+    /* 折叠动画 */
+    transition: 0.4s ease;
+  }
+
+  .header.open .burger-line-1 {
+    /* 转动45度，正数是一个从左到右旋转 */
+    transform: rotate(45deg) translate(2px, 5px);
+  }
+
+  .header.open .burger-line-2 {
+    transform: translateX(5px);
+    opacity: 0;
+  }
+
+  .header.open .burger-line-3 {
+    transform: rotate(-45deg) translate(2px, -5px);
+  }
+
+  /* logo呈现出来 */
+  .header.open .logo {
+    position: relative;
+    z-index: 40;
+    color: var(--text-color-darker);
+  }
+
+  /* 定义动画 */
+  /* 导航 */
+  @keyframes slideDown {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: 100vh;
+      padding-top: 80px;
+      opacity: 1;
+    }
+  }
+  /* 菜单 */
+  @keyframes showMenu {
+    from {
+      opacity: 0;
+      transform: translateY(-1vh);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  section {
+    padding: 0 60px;
+  }
+
+  .slide-caption h1 {
+    font-size: 48px;
+  }
+
+  .slide-caption h3 {
+    font-size: 20px;
+  }
+
+  .slide-caption .explore-btn {
+    font-size: 24px;
+    padding: 8px 28px;
+  }
+
+  .about-us .features {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: unset;
+  }
+
+  .showcases .case-item {
+    width: calc(100vw / 3);
+  }
+
+  .team-members {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 36px;
+  }
+
+  .data-section {
+    grid-template-columns: repeat(2, minmax(200px, auto));
+    padding: 24px 0;
+    height: auto;
+    row-gap: 24px;
+    background-size: 200%;
+  }
+
+  .trend-section .trends {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 36px;
+    column-gap: 20px;
+  }
+
+  .footer-menus .contact-us {
+    justify-self: left;
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .showcases .case-item {
+    width: calc(100vw / 2);
+    height: 30vw;
+  }
+  section,
+  .footer-menus {
+    padding: 0 40px;
+  }
+
+  .footer-menus {
+    grid-template-columns: 2fr repeat(2, 1fr);
+    row-gap: 24px;
+
+    text-align: right;
+  }
+
+  .contact-us {
+    grid-row: 1 / 3;
+  }
+}
+
+@media (max-width: 576px) {
+  .slide-caption h1 {
+    font-size: 38px;
+  }
+
+  .slide-caption h3 {
+    font-size: 16px;
+  }
+
+  .slide-caption .explore-btn {
+    padding: 8px 20px;
+    font-size: 20px;
+  }
+
+  .about-us .features {
+    grid-template-columns: 1fr;
+  }
+
+  .showcases .case-item {
+    width: 100vw;
+    height: 56vw;
+  }
+
+  .team-members {
+    grid-template-columns: minmax(200px, 400px);
+  }
+
+  .data-section {
+    grid-template-columns: 1fr;
+    background-size: 400%;
+  }
+
+  .trend-section .trends {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-menus {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-menu {
+    justify-self: left;
+    text-align: left;
+  }
+}
+
+@media (max-width: 367px) {
+  .data-section {
+    background-size: 800%;
+  }
+}
+
+@media (max-width: 180px) {
+  .data-section {
+    background-size: 1200%;
+  }
 }
 </style>
